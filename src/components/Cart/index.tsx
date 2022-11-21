@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { CartItem } from '../../@types/Cart';
+import { Product } from '../../@types/Product';
 import theme from '../../styles/theme';
 import { FormatCurrency } from '../../utils/FormatCurrency';
 import Button from '../Button';
@@ -22,9 +23,15 @@ import {
 
 interface CartProps {
     cartItems: CartItem[];
+    onAdd: (product: Product) => void;
+    onRemove: (producr: Product) => void;
 }
 
-const Cart: React.FC<CartProps> = ({ cartItems }) => {
+const Cart: React.FC<CartProps> = ({ cartItems, onAdd, onRemove }) => {
+    const total = cartItems.reduce((acc, cartItem) => {
+        return acc + cartItem.quantity * cartItem.product.price
+    }, 0)
+
     return (
         <>
             {cartItems.length > 0 && (
@@ -68,10 +75,13 @@ const Cart: React.FC<CartProps> = ({ cartItems }) => {
                             <Actions>
                                 <ButtonOption
                                     style={{ marginRight: 28 }}
+                                    onPress={() => onAdd(cartItem.product)}
                                 >
                                     <PlusCircle />
                                 </ButtonOption>
-                                <ButtonOption>
+                                <ButtonOption
+                                    onPress={() => onRemove(cartItem.product)}
+                                >
                                     <MinusCircle />
                                 </ButtonOption>
                             </Actions>
@@ -93,7 +103,7 @@ const Cart: React.FC<CartProps> = ({ cartItems }) => {
                                 size={20}
                                 weight={theme.FONTS.GENERAL_SEMI}
                             >
-                                {FormatCurrency(120)}
+                                {FormatCurrency(total)}
                             </Text>
                         </>
                     ) : (
