@@ -17,6 +17,7 @@ const TableModal: React.FC<ModalProps> = ({isVisible, onClose, onSave}) => {
     const [table, setTable] = useState<string>('')
 
     const handleSave = () => {
+        setTable('')
         onSave(table);
         onClose()
     }
