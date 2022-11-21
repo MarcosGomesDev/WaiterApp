@@ -12,10 +12,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-WaiterApp-WaiterAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-WaiterApp-WaiterAppTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		397757C761744AB1BE80269D /* GeneralSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93ED4C0500844280A92016E5 /* GeneralSans-Bold.otf */; };
 		6968487D29374CB580B0EFBA /* GeneralSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8B1BB7E0E9D8470CAF84A54D /* GeneralSans-Regular.otf */; };
+		7699B88040F8A987B510C191 /* libPods-WaiterApp-WaiterAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-WaiterApp-WaiterAppTests.a */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		F50C8A5745B3483EA4C504FA /* GeneralSans-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CEEC116961B94359BAAA3E73 /* GeneralSans-Semibold.otf */; };
 /* End PBXBuildFile section */
 
@@ -46,10 +46,10 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-WaiterApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WaiterApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = WaiterApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-WaiterApp-WaiterAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WaiterApp-WaiterAppTests.release.xcconfig"; path = "Target Support Files/Pods-WaiterApp-WaiterAppTests/Pods-WaiterApp-WaiterAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		8B1BB7E0E9D8470CAF84A54D /* GeneralSans-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "GeneralSans-Regular.otf"; path = "../src/assets/fonts/GeneralSans-Regular.otf"; sourceTree = "<group>"; };
+		93ED4C0500844280A92016E5 /* GeneralSans-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "GeneralSans-Bold.otf"; path = "../src/assets/fonts/GeneralSans-Bold.otf"; sourceTree = "<group>"; };
+		CEEC116961B94359BAAA3E73 /* GeneralSans-Semibold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "GeneralSans-Semibold.otf"; path = "../src/assets/fonts/GeneralSans-Semibold.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		93ED4C0500844280A92016E5 /* GeneralSans-Bold.otf */ = {isa = PBXFileReference; name = "GeneralSans-Bold.otf"; path = "../src/assets/fonts/GeneralSans-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8B1BB7E0E9D8470CAF84A54D /* GeneralSans-Regular.otf */ = {isa = PBXFileReference; name = "GeneralSans-Regular.otf"; path = "../src/assets/fonts/GeneralSans-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CEEC116961B94359BAAA3E73 /* GeneralSans-Semibold.otf */ = {isa = PBXFileReference; name = "GeneralSans-Semibold.otf"; path = "../src/assets/fonts/GeneralSans-Semibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +144,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A0865D4533A04A13882EA46A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				93ED4C0500844280A92016E5 /* GeneralSans-Bold.otf */,
+				8B1BB7E0E9D8470CAF84A54D /* GeneralSans-Regular.otf */,
+				CEEC116961B94359BAAA3E73 /* GeneralSans-Semibold.otf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,17 +165,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		A0865D4533A04A13882EA46A /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				93ED4C0500844280A92016E5 /* GeneralSans-Bold.otf */,
-				8B1BB7E0E9D8470CAF84A54D /* GeneralSans-Regular.otf */,
-				CEEC116961B94359BAAA3E73 /* GeneralSans-Semibold.otf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
