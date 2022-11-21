@@ -23,11 +23,17 @@ interface ModalProps {
     isVisible: boolean;
     onClose: () => void;
     product: null | Product;
+    onAddToCart: (product: Product) => void;
 }
 
-const ProductModal: React.FC<ModalProps> = ({ isVisible, onClose, product }) => {
+const ProductModal: React.FC<ModalProps> = ({ isVisible, onClose, product, onAddToCart }) => {
     if (!product) {
         return null;
+    }
+
+    const handleAddToCart = () => {
+        onAddToCart(product!);
+        onClose();
     }
 
     return (
@@ -114,7 +120,7 @@ const ProductModal: React.FC<ModalProps> = ({ isVisible, onClose, product }) => 
                         </Text>
                     </PriceContainer>
                     <Button
-                        onPress={() => { }}
+                        onPress={handleAddToCart}
                     >
                         Adicionar ao pedido
                     </Button>

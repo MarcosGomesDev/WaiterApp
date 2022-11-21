@@ -17,7 +17,11 @@ import {
     AddBtn,
 } from './styles';
 
-const Menu: React.FC = () => {
+interface MenuProps {
+    onAddToCart: (product: Product) => void;
+}
+
+const Menu: React.FC<MenuProps> = ({onAddToCart}) => {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [selectedProduct, setSelectedProduct] = useState<null | Product>(null)
 
@@ -32,7 +36,7 @@ const Menu: React.FC = () => {
                 isVisible={modalVisible}
                 onClose={() => setModalVisible(!modalVisible)}
                 product={selectedProduct}
-
+                onAddToCart={onAddToCart}
             />
             <FlatList
                 data={products}
@@ -65,7 +69,9 @@ const Menu: React.FC = () => {
                                 {FormatCurrency(product.price)}
                             </Text>
                         </ProductDetails>
-                        <AddBtn>
+                        <AddBtn
+                            onPress={() => onAddToCart(product)}
+                        >
                             <PlusCircle />
                         </AddBtn>
                     </ProductContainer>
