@@ -1,25 +1,36 @@
 import React from 'react';
+import Categories from '../components/Categories';
 import Header from '../components/Header';
+import Menu from '../components/Menu';
 
-import { CategoriesContainer, Container, Footer, MenuContainer } from './styles';
+import {
+    Container,
+    CategoriesContainer,
+    MenuContainer,
+    Footer,
+    FooterContainer
+} from './styles';
 
 const Main: React.FC = () => {
     return (
-        <Container>
-            <Header />
+        <>
+            <Container>
+                <Header />
 
-            <CategoriesContainer>
+                <CategoriesContainer>
+                    <Categories />
+                </CategoriesContainer>
 
-            </CategoriesContainer>
-
-            <MenuContainer>
-
-            </MenuContainer>
-
+                <MenuContainer>
+                    <Menu />
+                </MenuContainer>
+            </Container>
             <Footer>
+                <FooterContainer>
 
+                </FooterContainer>
             </Footer>
-        </Container>
+        </>
     );
 }
 
