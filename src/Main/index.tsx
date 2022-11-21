@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../components/Button';
 import Categories from '../components/Categories';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
@@ -27,7 +28,11 @@ const Main: React.FC = () => {
             </Container>
             <Footer>
                 <FooterContainer>
-
+                    <Button
+                        onPress={() => {}}
+                    >
+                        Novo pedido
+                    </Button>
                 </FooterContainer>
             </Footer>
         </>
