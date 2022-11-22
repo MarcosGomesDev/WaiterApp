@@ -5,6 +5,7 @@ import theme from '../../styles/theme';
 import { FormatCurrency } from '../../utils/FormatCurrency';
 import Button from '../Button';
 import { Close } from '../Icons/Close';
+import StatusBarCustom from '../StatusBarCustom';
 import { Text } from '../Text';
 
 import {
@@ -42,90 +43,96 @@ const ProductModal: React.FC<ModalProps> = ({ isVisible, onClose, product, onAdd
             animationType="slide"
             presentationStyle='pageSheet'
             onRequestClose={onClose}
+            transparent={false}
+            statusBarTranslucent={false}
         >
-            <Image
-                source={{
-                    uri: `http://192.168.1.4:3001/uploads/${product.imagePath}`
-                }}
-            >
-                <CloseBtn
-                    onPress={onClose}
+            <StatusBarCustom
+                style='light-content'
+                background='#000'
+            />
+                <Image
+                    source={{
+                        uri: `http://192.168.1.4:3001/uploads/${product.imagePath}`
+                    }}
                 >
-                    <Close color="#fff" />
-                </CloseBtn>
-            </Image>
-
-            <ModalBody>
-                <Header>
-                    <Text
-                        size={24}
-                        weight={theme.FONTS.GENERAL_SEMI}
+                    <CloseBtn
+                        onPress={onClose}
                     >
-                        {product.name}
-                    </Text>
-                    <Text
-                        color="#666"
-                        style={{ marginTop: 8 }}
-                    >
-                        {product.description}
-                    </Text>
-                </Header>
+                        <Close color="#fff" />
+                    </CloseBtn>
+                </Image>
 
-                {product.ingredients.length > 0 && (
-                    <IngredientsContainer>
+                <ModalBody>
+                    <Header>
                         <Text
-                            weight={theme.FONTS.GENERAL_SEMI}
-                            color="#666"
-                        >
-                            Ingredientes
-                        </Text>
-
-                        <FlatList
-                            data={product.ingredients}
-                            keyExtractor={ingredient => ingredient._id}
-                            style={{
-                                marginTop: 16
-                            }}
-                            showsVerticalScrollIndicator={false}
-                            renderItem={({ item: ingredient }) => (
-                                <Ingredient>
-                                    <Text>{ingredient.icon}</Text>
-                                    <Text
-                                        size={14}
-                                        color="#666"
-                                        style={{ marginLeft: 20 }}
-                                    >
-                                        {ingredient.name}
-                                    </Text>
-                                </Ingredient>
-                            )}
-                        />
-                    </IngredientsContainer>
-                )}
-            </ModalBody>
-
-            <Footer>
-                <FooterContainer>
-                    <PriceContainer>
-                        <Text
-                            color="#666"
-                        >
-                            Preço
-                        </Text>
-                        <Text
-                            size={20}
+                            size={24}
                             weight={theme.FONTS.GENERAL_SEMI}
                         >
-                            {FormatCurrency(product.price)}
+                            {product.name}
                         </Text>
-                    </PriceContainer>
-                    <Button
-                        onPress={handleAddToCart}
-                    >
-                        Adicionar ao pedido
-                    </Button>
-                </FooterContainer>
-            </Footer>
+                        <Text
+                            color="#666"
+                            style={{ marginTop: 8 }}
+                        >
+                            {product.description}
+                        </Text>
+                    </Header>
+
+                    {product.ingredients.length > 0 && (
+                        <IngredientsContainer>
+                            <Text
+                                weight={theme.FONTS.GENERAL_SEMI}
+                                color="#666"
+                            >
+                                Ingredientes
+                            </Text>
+
+                            <FlatList
+                                data={product.ingredients}
+                                keyExtractor={ingredient => ingredient._id}
+                                style={{
+                                    marginTop: 16
+                                }}
+                                showsVerticalScrollIndicator={false}
+                                renderItem={({ item: ingredient }) => (
+                                    <Ingredient>
+                                        <Text>{ingredient.icon}</Text>
+                                        <Text
+                                            size={14}
+                                            color="#666"
+                                            style={{ marginLeft: 20 }}
+                                        >
+                                            {ingredient.name}
+                                        </Text>
+                                    </Ingredient>
+                                )}
+                            />
+                        </IngredientsContainer>
+                    )}
+                </ModalBody>
+
+                <Footer>
+                    <FooterContainer>
+                        <PriceContainer>
+                            <Text
+                                color="#666"
+                            >
+                                Preço
+                            </Text>
+                            <Text
+                                size={20}
+                                weight={theme.FONTS.GENERAL_SEMI}
+                            >
+                                {FormatCurrency(product.price)}
+                            </Text>
+                        </PriceContainer>
+                        <Button
+                            onPress={handleAddToCart}
+                        >
+                            Adicionar ao pedido
+                        </Button>
+                    </FooterContainer>
+                </Footer>
         </Modal>
     );
 }

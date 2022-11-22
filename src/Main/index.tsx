@@ -23,20 +23,40 @@ import {
     FooterContainer,
     CenterContainer
 } from './styles';
-import axios from 'axios';
+import api from '../services/api';
 
 
 const Main: React.FC = () => {
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [loadProducts, setLoadProducts] = useState<boolean>(false);
     const [selectedTable, setSelectedTable] = useState<string>('');
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
-        axios.get()
+        Promise.all([
+            api.get('/categories'),
+            api.get('/products')
+        ]).then(([categoriesResponse, productsResponse]) => {
+            setCategories(categoriesResponse.data)
+            setProducts(productsResponse.data)
+            setLoading(false)
+        })
     }, [])
+
+    const handleSelectCategory = async (cateogryId: string) => {
+        const route = !cateogryId
+            ? '/products'
+            : `/categories/${cateogryId}/products`;
+
+        setLoadProducts(true)
+
+        const { data } = await api.get(route);
+        setProducts(data);
+        setLoadProducts(false);
+    }
 
     const handleSaveTable = (table: string) => {
         setSelectedTable(table);
@@ -118,26 +138,37 @@ const Main: React.FC = () => {
                         <CategoriesContainer>
                             <Categories
                                 categories={categories}
+                                onSelectCategory={handleSelectCategory}
                             />
                         </CategoriesContainer>
 
-                        {products.length > 0 ? (
-                            <MenuContainer>
-                                <Menu
-                                    onAddToCart={handleAddToCart}
-                                    products={products}
-                                />
-                            </MenuContainer>
-                        ) : (
+                        {loadProducts && (
                             <CenterContainer>
-                                <Empty />
-                                <Text
-                                    color="#666"
-                                    style={{marginTop: 24}}
-                                >
-                                    Nenhum produto foi encontrado!
-                                </Text>
+                                <ActivityIndicator color={"#d73035"} size="large" />
                             </CenterContainer>
+                        )}
+
+                        {!loadProducts && (
+                            <>
+                                {products.length > 0 ? (
+                                    <MenuContainer>
+                                        <Menu
+                                            onAddToCart={handleAddToCart}
+                                            products={products}
+                                        />
+                                    </MenuContainer>
+                                ) : (
+                                    <CenterContainer>
+                                        <Empty />
+                                        <Text
+                                            color="#666"
+                                            style={{ marginTop: 24 }}
+                                        >
+                                            Nenhum produto foi encontrado!
+                                        </Text>
+                                    </CenterContainer>
+                                )}
+                            </>
                         )}
                     </>
                 )}
@@ -160,6 +191,7 @@ const Main: React.FC = () => {
                             onAdd={handleAddToCart}
                             onRemove={handleRemoveToCart}
                             onConfirmOrder={handleResetOrder}
+                            selectedTable={selectedTable}
                         />
                     )}
                 </FooterContainer>

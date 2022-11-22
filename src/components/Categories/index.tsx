@@ -11,14 +11,16 @@ import theme from '../../styles/theme';
 import { Category } from '../../@types/Category';
 
 interface CategoryProps {
-    categories: Category[]
+    categories: Category[];
+    onSelectCategory: (categoryId: string) => Promise<void>;
 }
 
-const Categories: React.FC<CategoryProps> = ({categories}) => {
+const Categories: React.FC<CategoryProps> = ({categories, onSelectCategory}) => {
     const [selectedCategory, setSelectedCategory] = useState<string>('')
 
     const handleSelectionCategory = (categoryId: string) => {
         const category = selectedCategory === categoryId ? '' : categoryId
+        onSelectCategory(category)
         setSelectedCategory(category)
     }
 

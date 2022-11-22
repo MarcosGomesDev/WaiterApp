@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { CartItem } from '../../@types/CartItem';
 import { Product } from '../../@types/Product';
+import api from '../../services/api';
 import theme from '../../styles/theme';
 import { FormatCurrency } from '../../utils/FormatCurrency';
 import Button from '../Button';
@@ -27,9 +28,10 @@ interface CartProps {
     onAdd: (product: Product) => void;
     onRemove: (producr: Product) => void;
     onConfirmOrder: () => void;
+    selectedTable: string;
 }
 
-const Cart: React.FC<CartProps> = ({ cartItems, onAdd, onRemove, onConfirmOrder }) => {
+const Cart: React.FC<CartProps> = ({ cartItems, onAdd, onRemove, onConfirmOrder, selectedTable }) => {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -37,7 +39,18 @@ const Cart: React.FC<CartProps> = ({ cartItems, onAdd, onRemove, onConfirmOrder 
         return acc + cartItem.quantity * cartItem.product.price
     }, 0)
 
-    const handlerConfirmOrder = () => {
+    const handlerConfirmOrder = async () => {
+        setLoading(true)
+        const payload = {
+            table: selectedTable,
+            products: cartItems.map((cartItem) => ({
+                product: cartItem.product._id,
+                quantity: cartItem.quantity,
+            }))
+        }
+
+        await api.post('/orders', payload)
+        setLoading(false)
         setModalVisible(true);
     }
 
