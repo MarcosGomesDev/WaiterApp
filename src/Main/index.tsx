@@ -1,31 +1,49 @@
-import React, { useState } from 'react';
-import { CartItem } from '../@types/Cart';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
+
+import { CartItem } from '../@types/CartItem';
 import { Product } from '../@types/Product';
+import { Category } from '../@types/Category';
+
 import Button from '../components/Button';
 import Cart from '../components/Cart';
 import Categories from '../components/Categories';
 import Header from '../components/Header';
+import Empty from '../components/Icons/Empty';
 import Menu from '../components/Menu';
+import StatusBarCustom from '../components/StatusBarCustom';
 import TableModal from '../components/TableModal';
+import { Text } from '../components/Text';
 
 import {
     Container,
     CategoriesContainer,
     MenuContainer,
     Footer,
-    FooterContainer
+    FooterContainer,
+    CenterContainer
 } from './styles';
+import axios from 'axios';
+
 
 const Main: React.FC = () => {
+    const [loading, setLoading] = useState<boolean>(false);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [selectedTable, setSelectedTable] = useState<string>('');
-    const [cartItems, setCartItems] = useState<CartItem[]>([])
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
+
+    useEffect(() => {
+        axios.get()
+    }, [])
 
     const handleSaveTable = (table: string) => {
         setSelectedTable(table);
     }
 
-    const handleCancelOrder = () => {
+    const handleResetOrder = () => {
+        setCartItems([])
         setSelectedTable('');
     }
 
@@ -81,26 +99,56 @@ const Main: React.FC = () => {
     return (
         <>
             <Container>
+                <StatusBarCustom
+                    style='dark-content'
+                />
                 <Header
                     selectedTable={selectedTable}
-                    onCancelOrder={handleCancelOrder}
+                    onCancelOrder={handleResetOrder}
                 />
 
-                <CategoriesContainer>
-                    <Categories />
-                </CategoriesContainer>
+                {loading && (
+                    <CenterContainer>
+                        <ActivityIndicator color={"#d73035"} size="large" />
+                    </CenterContainer>
+                )}
 
-                <MenuContainer>
-                    <Menu
-                        onAddToCart={handleAddToCart}
-                    />
-                </MenuContainer>
+                {!loading && (
+                    <>
+                        <CategoriesContainer>
+                            <Categories
+                                categories={categories}
+                            />
+                        </CategoriesContainer>
+
+                        {products.length > 0 ? (
+                            <MenuContainer>
+                                <Menu
+                                    onAddToCart={handleAddToCart}
+                                    products={products}
+                                />
+                            </MenuContainer>
+                        ) : (
+                            <CenterContainer>
+                                <Empty />
+                                <Text
+                                    color="#666"
+                                    style={{marginTop: 24}}
+                                >
+                                    Nenhum produto foi encontrado!
+                                </Text>
+                            </CenterContainer>
+                        )}
+                    </>
+                )}
             </Container>
+
             <Footer>
                 <FooterContainer>
                     {!selectedTable && (
                         <Button
                             onPress={() => setModalVisible(!modalVisible)}
+                            disabled={loading}
                         >
                             Novo pedido
                         </Button>
@@ -111,6 +159,7 @@ const Main: React.FC = () => {
                             cartItems={cartItems}
                             onAdd={handleAddToCart}
                             onRemove={handleRemoveToCart}
+                            onConfirmOrder={handleResetOrder}
                         />
                     )}
                 </FooterContainer>
