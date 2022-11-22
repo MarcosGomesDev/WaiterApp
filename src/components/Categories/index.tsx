@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import { Alert, FlatList, View } from 'react-native';
 
 import {
-    Category,
+    CategoryContainer,
     IconContainer
 } from './styles';
 
-import { categories } from '../../mocks/categories';
 import { Text } from '../Text';
 import theme from '../../styles/theme';
+import { Category } from '../../@types/Category';
 
-const Categories: React.FC = () => {
+interface CategoryProps {
+    categories: Category[]
+}
+
+const Categories: React.FC<CategoryProps> = ({categories}) => {
     const [selectedCategory, setSelectedCategory] = useState<string>('')
 
     const handleSelectionCategory = (categoryId: string) => {
@@ -29,7 +33,7 @@ const Categories: React.FC = () => {
                 const isSelected = selectedCategory === category._id
 
                 return (
-                    <Category onPress={() => handleSelectionCategory(category._id)}>
+                    <CategoryContainer onPress={() => handleSelectionCategory(category._id)}>
                         <IconContainer>
                             <Text
                                 opacity={isSelected ? 1 : 0.5}
@@ -45,7 +49,7 @@ const Categories: React.FC = () => {
                         >
                             {category.name}
                         </Text>
-                    </Category>
+                    </CategoryContainer>
                 )
             }}
         />

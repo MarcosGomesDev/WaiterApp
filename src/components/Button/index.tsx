@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import theme from '../../styles/theme';
 import { Text } from '../Text';
 
@@ -9,20 +9,28 @@ interface ButtonProps {
     children: string;
     onPress: () => void;
     disabled?: boolean;
+    isLoading?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({children, onPress, disabled}) => {
+const Button: React.FC<ButtonProps> = ({ children, onPress, disabled, isLoading }) => {
     return (
         <Container
             onPress={onPress}
-            disabled={disabled}
+            disabled={disabled || isLoading}
         >
-            <Text
-                weight={theme.FONTS.GENERAL_SEMI}
-                color={"#fff"}
-            >
-                {children}
-            </Text>
+            {isLoading && (
+                <ActivityIndicator color={'#fff'} />
+            )}
+
+            {!isLoading && (
+                <Text
+                    weight={theme.FONTS.GENERAL_SEMI}
+                    color={"#fff"}
+                >
+                    {children}
+                </Text>
+            )}
+
         </Container>
     );
 }

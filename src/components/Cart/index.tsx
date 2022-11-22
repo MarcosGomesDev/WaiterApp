@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { CartItem } from '../../@types/Cart';
+import { CartItem } from '../../@types/CartItem';
 import { Product } from '../../@types/Product';
 import theme from '../../styles/theme';
 import { FormatCurrency } from '../../utils/FormatCurrency';
 import Button from '../Button';
 import { MinusCircle } from '../Icons/MinusCircle';
 import { PlusCircle } from '../Icons/PlusCircle';
+import OrderConfirmModal from '../OrderConfirmModal';
 import { Text } from '../Text';
 
 import {
@@ -25,15 +26,33 @@ interface CartProps {
     cartItems: CartItem[];
     onAdd: (product: Product) => void;
     onRemove: (producr: Product) => void;
+    onConfirmOrder: () => void;
 }
 
-const Cart: React.FC<CartProps> = ({ cartItems, onAdd, onRemove }) => {
+const Cart: React.FC<CartProps> = ({ cartItems, onAdd, onRemove, onConfirmOrder }) => {
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+
     const total = cartItems.reduce((acc, cartItem) => {
         return acc + cartItem.quantity * cartItem.product.price
     }, 0)
 
+    const handlerConfirmOrder = () => {
+        setModalVisible(true);
+    }
+
+    const handleOk = () => {
+        onConfirmOrder()
+        setModalVisible(!modalVisible)
+    }
+
     return (
         <>
+            <OrderConfirmModal
+                onConfirm={handleOk}
+                isVisible={modalVisible}
+            />
+
             {cartItems.length > 0 && (
                 <FlatList
                     data={cartItems}
@@ -118,7 +137,8 @@ const Cart: React.FC<CartProps> = ({ cartItems, onAdd, onRemove }) => {
 
                 <Button
                     disabled={cartItems.length === 0}
-                    onPress={() => { }}
+                    onPress={handlerConfirmOrder}
+                    isLoading={loading}
                 >
                     Confirmar pedido
                 </Button>
